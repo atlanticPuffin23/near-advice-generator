@@ -1,21 +1,22 @@
-import 'regenerator-runtime/runtime'
-import React from 'react'
-import  {login, logout } from './near/utils'
-import getConfig from './near/config'
+import 'regenerator-runtime/runtime';
+import React from 'react';
+import { login, logout } from './near/utils';
 
-
-export const App = () =>{
-  if (!window.walletConnection.isSignedIn()) {
+export const App: React.FC = () => {
+  // @ts-ignore for walletConnection
+  if (window.walletConnection.isSignedIn()) {
     return (
       <div>
-        logged out
+        <p>logged in</p>
+        <button onClick={logout}>log out</button>
       </div>
-    )
+    );
   }
 
   return (
     <div>
-       logged in
+      <p>logged out</p>
+      <button onClick={login}>log in</button>
     </div>
-  )
-}
+  );
+};
