@@ -1,6 +1,9 @@
 import 'regenerator-runtime/runtime';
 import React, { useEffect } from 'react';
-import { login, logout } from './near/utils';
+import { logout } from './near/utils';
+import { Global } from '@emotion/react';
+import { Login } from './components/Login';
+import { AppContent, AppLayout, ApplicationStyled } from './style';
 
 interface IQuiz {
   id: string;
@@ -27,39 +30,41 @@ export const App: React.FC = () => {
     getQuizList();
   }, []);
 
-  // TO DO: Fix type
-  // @ts-ignore for walletConnection
-  if (window.walletConnection.isSignedIn()) {
-    return (
-      <div>
-        {/*  @TO DO: Fix type */}
-        {/*  @ts-ignore for walletConnection */}
-        <p>Hi {window.accountId}</p>
-
-        <p>logged in</p>
-        {/*  @TO DO: Fix type */}
-        {/*  @ts-ignore for walletConnection */}
-        <button onClick={createNewQuiz}>create Quiz</button>
-        <button onClick={getQuizList}>Get Advice</button>
-
-        {quizzes &&
-          quizzes?.map(({ id, title, owner, questions }) => (
-            <>
-              <p>{id}</p>
-              <p>{title}</p>
-              <p>{owner}</p>
-              <p>{questions}</p>
-            </>
-          ))}
-        <button onClick={logout}>log out</button>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      <p>logged out</p>
-      <button onClick={login}>log in</button>
-    </div>
+    <>
+      <Global styles={ApplicationStyled} />
+      <AppLayout>
+        <AppContent>
+          {/* TO DO: Fix type */}
+          {/* @ts-ignore for walletConnection */}
+          {window.walletConnection.isSignedIn() ? (
+            <div>
+              {/*  @TO DO: Fix type */}
+              {/*  @ts-ignore for walletConnection */}
+              <p>Hi {window.accountId}</p>
+
+              <p>logged in</p>
+              {/*  @TO DO: Fix type */}
+              {/*  @ts-ignore for walletConnection */}
+              <button onClick={createNewQuiz}>create Quiz</button>
+              <button onClick={getQuizList}>Get Advice</button>
+
+              {quizzes &&
+                quizzes?.map(({ id, title, owner, questions }) => (
+                  <>
+                    <p>{id}</p>
+                    <p>{title}</p>
+                    <p>{owner}</p>
+                    <p>{questions}</p>
+                  </>
+                ))}
+              <button onClick={logout}>log out</button>
+            </div>
+          ) : (
+            <Login />
+          )}
+        </AppContent>
+      </AppLayout>
+    </>
   );
 };
