@@ -12,9 +12,8 @@ export async function initContract() {
   window.accountId = window.walletConnection.getAccountId();
 
   window.contract = await new Contract(window.walletConnection.account(), nearConfig.contractName, {
-    // TBD: Add methods to view / change
-    viewMethods: [],
-    changeMethods: [],
+    viewMethods: ['getAllQuizzes'],
+    changeMethods: ['createQuiz'],
   });
 }
 

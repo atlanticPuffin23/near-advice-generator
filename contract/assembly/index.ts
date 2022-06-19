@@ -1,24 +1,15 @@
-/*
- * Example smart contract written in AssemblyScript
- *
- * Learn more about writing NEAR smart contracts with AssemblyScript:
- * https://near-docs.io/develop/welcome
- *
- */
+import { Quiz } from './model';
 
-import { logging, storage } from 'near-sdk-as'
+export function getAllQuizzes(): Quiz[] {
+  const quizzes = Quiz.getAllQuizzes();
+  const result = new Array<Quiz>();
+  for (let i = 0; i < quizzes.length; i++) {
+    result.push(quizzes[i]);
+  }
 
-const DEFAULT_MESSAGE = 'Hello'
-
-// Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
-export function get_greeting(): string {
-  return storage.getPrimitive<string>('message', DEFAULT_MESSAGE)
+  return result;
 }
 
-// Public method - accepts a greeting, such as 'howdy', and records it
-export function set_greeting(message: string): void {
-  const reversedMessage = message.split('').reverse().join('');
-  // Use logging.log to record logs permanently to the blockchain!
-  logging.log(`Saving greeting '${reversedMessage}'`)
-  storage.set<string>('message', reversedMessage)
+export function createQuiz(title: string, questions: string[]): number {
+  return Quiz.addNewQuiz(title, questions);
 }
