@@ -1,19 +1,12 @@
-import styled from '@emotion/styled';
+import styled, { Interpolation } from '@emotion/styled';
+import { Theme } from '@emotion/react';
 
-export const AppLayout = styled.div({
+export const AppWrapper = styled.div({
   display: 'flex',
   height: '100%',
 });
 
-export const AppContent = styled.main({
-  display: 'flex',
-  height: '100%',
-  flexDirection: 'column',
-  flexGrow: 1,
-  overflow: 'auto',
-});
-
-export const ApplicationStyled = {
+export const ApplicationStyled: Interpolation<Theme> = {
   ['*']: {
     margin: 0,
     padding: 0,

@@ -6,6 +6,7 @@ export const LoginWrapper = styled.div({
   justifyContent: 'center',
   display: 'flex',
   height: '100%',
+  width: '100%',
   flexDirection: 'column',
 });
 
