@@ -1,4 +1,4 @@
-import { Quiz } from './model';
+import { Quiz, Question } from './model';
 
 export function getAllQuizzes(): Quiz[] {
   const quizzes = Quiz.getAllQuizzes();
@@ -6,10 +6,15 @@ export function getAllQuizzes(): Quiz[] {
   for (let i = 0; i < quizzes.length; i++) {
     result.push(quizzes[i]);
   }
-
   return result;
 }
 
-export function createQuiz(title: string, questions: string[]): number {
-  return Quiz.addNewQuiz(title, questions);
+export function createQuiz(title: string, questions: Question[]): number {
+  const arr = new Array<Question>(questions.length);
+
+  for (let i = 0; i < questions.length; i++) {
+    arr[i] = questions[i];
+  }
+
+  return Quiz.addNewQuiz(title, arr);
 }

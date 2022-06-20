@@ -1,11 +1,22 @@
 import React, { useEffect } from 'react';
-import { logout } from '../../near/utils';
+import { QuizListItem } from './QuizListItem';
+import { PageTitle, QuizListWrapper } from './style';
 
-interface IQuiz {
+interface IChoice {
+  choice: string;
+  isCorrect: boolean;
+}
+
+interface IQuestion {
+  quiestion: string;
+  choices: IChoice[];
+}
+
+export interface IQuiz {
   id: string;
   title: string;
   owner: string;
-  questions: string[];
+  questions: IQuestion[];
 }
 
 export const Home: React.FC = () => {
@@ -18,30 +29,14 @@ export const Home: React.FC = () => {
     quizzesList && setQuizzes(quizzesList);
   };
 
-  // TO DO: Fix type
-  // @ts-ignore
-  const createNewQuiz = () => window.contract.createQuiz({ title: 'TEST', questions: ['1', '2'] });
-
   useEffect(() => {
     getQuizList();
   }, []);
 
   return (
     <div>
-      <h1>Quiz List</h1>
-      <button onClick={createNewQuiz}>create Quiz</button>
-      <button onClick={getQuizList}>Get Advice</button>
-
-      {quizzes &&
-        quizzes?.map(({ id, title, owner, questions }) => (
-          <>
-            <p>{id}</p>
-            <p>{title}</p>
-            <p>{owner}</p>
-            <p>{questions}</p>
-          </>
-        ))}
-      <button onClick={logout}>log out</button>
+      <PageTitle>Quiz List</PageTitle>
+      <QuizListWrapper>{quizzes && quizzes?.map((quiz) => <QuizListItem key={quiz.id} {...quiz} />)}</QuizListWrapper>
     </div>
   );
 };

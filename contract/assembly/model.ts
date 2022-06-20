@@ -1,13 +1,24 @@
 import { Context, math, PersistentVector } from 'near-sdk-as';
 
 @nearBindgen
+export class Choice {
+  isCorrect: boolean;
+  choice: string;
+}
+
+@nearBindgen
+export class Question {
+  title: string;
+  choices: Choice[];
+}
+@nearBindgen
 export class Quiz {
   id: u32;
   title: string;
   owner: string;
-  questions: string[];
+  questions: Question[];
 
-  constructor(title: string, questions: string[]) {
+  constructor(title: string, questions: Question[]) {
     this.id = Quiz.generateUniqueID();
     this.title = title;
     this.owner = Context.contractName;
@@ -19,7 +30,7 @@ export class Quiz {
     return quizzes;
   }
 
-  static addNewQuiz(title: string, questions: string[]): number {
+  static addNewQuiz(title: string, questions: Question[]): number {
     const newQuiz = new Quiz(title, questions);
     return quizzes.push(newQuiz);
   }
@@ -30,4 +41,4 @@ export class Quiz {
   }
 }
 
-export const quizzes = new PersistentVector<Quiz>('quizzes');
+export const quizzes = new PersistentVector<Quiz>('quizzes1');

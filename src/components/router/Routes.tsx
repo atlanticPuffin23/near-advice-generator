@@ -1,5 +1,6 @@
 import React from 'react';
 import { Home } from '../Home/Home';
+import { Quiz } from '../Quiz/Quiz';
 import { ROUTES } from './constants';
 import { Login } from '../Login/Login';
 import { PrivateRoute } from './PrivateRoute';
@@ -21,6 +22,14 @@ export const Router = () => (
       element={
         <PrivateRoute>
           <CreateQuiz />
+        </PrivateRoute>
+      }
+    />
+    <Route
+      path={ROUTES.Quiz}
+      element={
+        <PrivateRoute>
+          <Quiz />
         </PrivateRoute>
       }
     />
