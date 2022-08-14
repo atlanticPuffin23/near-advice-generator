@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { QuizListItem } from './QuizListItem';
 import { PageTitle, QuizListWrapper } from './style';
 
-interface IChoice {
+export interface IChoice {
   choice: string;
   isCorrect: boolean;
 }
 
-interface IQuestion {
+export interface IQuestion {
   quiestion: string;
   choices: IChoice[];
 }
@@ -16,7 +16,8 @@ export interface IQuiz {
   id: string;
   title: string;
   owner: string;
-  questions: IQuestion[];
+  questionsId: string;
+  questionsCount: string;
 }
 
 export const Home: React.FC = () => {
@@ -26,6 +27,7 @@ export const Home: React.FC = () => {
     // TO DO: Fix type
     // @ts-ignore
     const quizzesList = await window.contract.getAllQuizzes();
+    console.log('quizzesList', quizzesList);
     quizzesList && setQuizzes(quizzesList);
   };
 

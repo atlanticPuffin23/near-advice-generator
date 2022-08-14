@@ -1,4 +1,8 @@
-import { Context, math, PersistentVector } from 'near-sdk-as';
+import { generateUniqueID } from './helper';
+import { Context, PersistentUnorderedMap } from 'near-sdk-as';
+
+export const quizzes = new PersistentUnorderedMap<string, Quiz>('quiz_map2');
+export const questions_map = new PersistentUnorderedMap<string, Question[]>('questions_map2');
 
 @nearBindgen
 export class Choice {
@@ -8,37 +12,30 @@ export class Choice {
 
 @nearBindgen
 export class Question {
-  title: string;
+  quiestion: string;
   choices: Choice[];
 }
+
 @nearBindgen
 export class Quiz {
   id: u32;
   title: string;
   owner: string;
-  questions: Question[];
+  questionsCount: number;
+  questionsId: u32;
 
   constructor(title: string, questions: Question[]) {
-    this.id = Quiz.generateUniqueID();
+    this.id = generateUniqueID();
     this.title = title;
-    this.owner = Context.contractName;
-    this.questions = questions;
+    this.owner = Context.sender;
+    this.questionsCount = questions.length;
+    this.questionsId = this.saveQuestions(questions);
   }
 
-  // To DO: left static? or move to helper functions?
-  static getAllQuizzes(): PersistentVector<Quiz> {
-    return quizzes;
-  }
+  saveQuestions(questions: Question[]): u32 {
+    const questionsId = generateUniqueID();
+    questions_map.set(`${questionsId}`, questions);
 
-  static addNewQuiz(title: string, questions: Question[]): number {
-    const newQuiz = new Quiz(title, questions);
-    return quizzes.push(newQuiz);
-  }
-
-  // To DO: move it to utils?
-  private static generateUniqueID(): u32 {
-    return math.hash32(Context.sender + '-' + Context.blockIndex.toString());
+    return questionsId;
   }
 }
-
-export const quizzes = new PersistentVector<Quiz>('quizzes1');

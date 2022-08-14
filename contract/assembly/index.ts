@@ -1,20 +1,24 @@
-import { Quiz, Question } from './model';
+import { logging } from 'near-sdk-as';
+import { calculateScore } from './helper';
+import { Quiz, Question, questions_map, quizzes } from './model';
 
 export function getAllQuizzes(): Quiz[] {
-  const quizzes = Quiz.getAllQuizzes();
-  const result = new Array<Quiz>();
-  for (let i = 0; i < quizzes.length; i++) {
-    result.push(quizzes[i]);
-  }
-  return result;
+  return quizzes.values();
 }
 
-export function createQuiz(title: string, questions: Question[]): number {
-  const arr = new Array<Question>(questions.length);
+export function getQuizById(id: u32): Quiz {
+  return quizzes.getSome(`${id}`);
+}
 
-  for (let i = 0; i < questions.length; i++) {
-    arr[i] = questions[i];
-  }
+export function getScore(id: u32, answeredQuestions: Question[]): number {
+  return calculateScore(id, answeredQuestions);
+}
 
-  return Quiz.addNewQuiz(title, arr);
+export function createQuiz(title: string, questions: Question[]): void {
+  const newQuiz = new Quiz(title, questions);
+  quizzes.set(`${newQuiz.id}`, newQuiz);
+}
+
+export function getQuizQuestions(id: string): Question[] {
+  return questions_map.getSome(id);
 }

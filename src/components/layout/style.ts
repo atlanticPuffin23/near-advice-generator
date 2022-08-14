@@ -13,6 +13,9 @@ export const MainContent = styled.main({
 });
 
 export const HeaderWrapper = styled.header({
+  top: 0,
+  backdropFilter: 'blur(10px)',
+  zIndex: 999,
   maxHeight: 60,
   position: 'sticky',
   width: '100%',

@@ -19,6 +19,7 @@ export const QuizListItemWrapper = styled.div({
   color: '#000000',
   padding: 20,
   margin: 10,
+  minWidth: 300,
 });
 
 export const QuizInfoWrapper = styled.div({

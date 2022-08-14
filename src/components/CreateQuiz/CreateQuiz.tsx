@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 
 const mockedQuiz = [
   {
-    quiestion: 'QUIESTION: 2+2?',
+    quiestion: 'QUIESTION: 4?',
     choices: [
       { choice: '2', isCorrect: false },
       { choice: '3', isCorrect: false },
@@ -13,12 +13,30 @@ const mockedQuiz = [
     ],
   },
   {
-    quiestion: 'QUIESTION: 2+2*2?',
+    quiestion: 'QUIESTION: 8?',
     choices: [
       { choice: '4', isCorrect: false },
       { choice: '6', isCorrect: false },
       { choice: '8', isCorrect: true },
       { choice: '12', isCorrect: false },
+    ],
+  },
+  {
+    quiestion: 'QUIESTION: 6?',
+    choices: [
+      { choice: '4', isCorrect: false },
+      { choice: '6', isCorrect: true },
+      { choice: '8', isCorrect: false },
+      { choice: '12', isCorrect: false },
+    ],
+  },
+  {
+    quiestion: 'QUIESTION: 12?',
+    choices: [
+      { choice: '4', isCorrect: false },
+      { choice: '6', isCorrect: false },
+      { choice: '8', isCorrect: false },
+      { choice: '12', isCorrect: true },
     ],
   },
 ];
@@ -28,7 +46,7 @@ export const CreateQuiz: React.FC = () => {
     // TO DO: Fix type
     // @ts-ignore
     window.contract.createQuiz({
-      title: 'TITLE: MATH',
+      title: '15/08',
       questions: mockedQuiz,
     });
 
