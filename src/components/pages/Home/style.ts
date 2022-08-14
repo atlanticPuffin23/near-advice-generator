@@ -28,6 +28,7 @@ export const QuizInfoWrapper = styled.div({
 
 export const QuizTitle = styled.p({
   fontSize: 18,
+  fontWeight: 600,
 });
 
 export const QuizActionWrapper = styled.div({

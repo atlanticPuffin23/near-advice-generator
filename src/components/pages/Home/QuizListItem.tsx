@@ -1,12 +1,14 @@
 import React from 'react';
-import { IQuiz } from './Home';
 import { Link } from 'react-router-dom';
+import { IQuiz } from '../../../types/interfaces';
 import { QuizListItemWrapper, QuizActionWrapper, StartButton, QuizTitle } from './style';
 
-export const QuizListItem: React.FC<IQuiz> = ({ title, owner, questionsCount, questionsId, id }) => {
+export const QuizListItem: React.FC<IQuiz> = (quiz) => {
+  const { name, owner, questionsCount, id } = quiz;
+
   return (
     <QuizListItemWrapper>
-      <QuizTitle>{title}</QuizTitle>
+      <QuizTitle>{name}</QuizTitle>
       <p>by {owner}</p>
 
       <QuizActionWrapper>
@@ -17,7 +19,7 @@ export const QuizListItem: React.FC<IQuiz> = ({ title, owner, questionsCount, qu
           // @ts-ignore
           component={Link}
           to={`/quiz/${id}`}
-          state={{ title, owner, questionsCount, questionsId, id }}
+          state={quiz}
         >
           Start
         </StartButton>

@@ -12,8 +12,8 @@ export const Header: React.FC = () => (
     <Link to={ROUTES.Home}>
       <Logo src={NearLogo} alt="Near Logo" />
     </Link>
+
     <UserMenuWrapper>
-      {/* @ts-ignore */}
       <UserName>{window.walletConnection.getAccountId()}</UserName>
       {/* @ts-ignore */}
       <ButtonStyled component={Link} to={ROUTES.CreateQuiz}>
