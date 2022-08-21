@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IQuiz } from '../../../types/interfaces';
-import { QuizListItemWrapper, QuizActionWrapper, StartButton, QuizTitle } from './style';
+import { PrimaryButtonStyled } from '../../common/style';
+import { QuizListItemWrapper, QuizActionWrapper, QuizTitle } from './style';
 
 export const QuizListItem: React.FC<IQuiz> = (quiz) => {
   const { name, owner, questionsCount, id } = quiz;
@@ -14,15 +15,15 @@ export const QuizListItem: React.FC<IQuiz> = (quiz) => {
       <QuizActionWrapper>
         <p>Quiestions: {questionsCount}</p>
 
-        <StartButton
+        <PrimaryButtonStyled
           variant="contained"
           // @ts-ignore
           component={Link}
           to={`/quiz/${id}`}
-          state={quiz}
+          state={{ quiz }}
         >
           Start
-        </StartButton>
+        </PrimaryButtonStyled>
       </QuizActionWrapper>
     </QuizListItemWrapper>
   );

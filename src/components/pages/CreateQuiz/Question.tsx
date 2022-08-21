@@ -1,13 +1,13 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 import { QuestionWrapper } from './style';
-import { ICreateQuizValues } from './CreateQuiz';
+import { DEFAULT_CHOICE } from './constants';
 import { TextInput } from '../../common/TextInput';
-import { IQuestion } from '../../../types/interfaces';
+import { ICreateQuizQuestion, ICreateQuizValues } from '../../../types/interfaces';
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
 
 interface IQuestionProps {
-  question: IQuestion;
+  question: ICreateQuizQuestion;
   questionIndex: number;
 }
 
@@ -26,17 +26,18 @@ export const Question: React.FC<IQuestionProps> = ({ question, questionIndex }) 
   return (
     <QuestionWrapper>
       <TextInput
+        style={{ marginBottom: 20 }}
         id={`question-${questionIndex}-title`}
         name={`questions[${questionIndex}].title`}
         placeholder={`Question ${questionNumber}`}
       />
 
       <FormControl>
-        <FormLabel id="radio-buttons-group-label">Choose the right answer</FormLabel>
+        <FormLabel id="radio-buttons-group-label">Choose the correct answer</FormLabel>
 
         <RadioGroup
           aria-labelledby="radio-buttons-group-label"
-          defaultValue="0"
+          defaultValue={DEFAULT_CHOICE}
           name={`questions[${questionIndex}].correctChoice`}
           onChange={saveNewChoice}
         >

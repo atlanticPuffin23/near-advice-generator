@@ -1,14 +1,16 @@
 export const MAX_QUESTIONS_SIZE = 10;
+export const DEFAULT_CHOICE = '0';
 
 export const CREATE_QUIZ_QUESTION_INITIAL_VALUES = [
   {
-    correctChoice: '0',
+    order: 0,
+    correctChoice: DEFAULT_CHOICE,
     title: '',
     choices: [
-      { title: '', isCorrect: false },
-      { title: '', isCorrect: false },
-      { title: '', isCorrect: false },
-      { title: '', isCorrect: false },
+      { order: 0, title: '', isCorrect: true },
+      { order: 1, title: '', isCorrect: false },
+      { order: 2, title: '', isCorrect: false },
+      { order: 3, title: '', isCorrect: false },
     ],
   },
 ];

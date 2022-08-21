@@ -2,25 +2,39 @@ import { generateUniqueID } from './helper';
 import { Context, PersistentUnorderedMap } from 'near-sdk-as';
 
 // To DO: update name before finish
-export const quizzes = new PersistentUnorderedMap<u32, Quiz>('quiz_map3');
-export const questions_map = new PersistentUnorderedMap<u32, Question[]>('questions_map3');
+export const quizzes = new PersistentUnorderedMap<u32, Quiz>('quiz_map4');
+export const questions_map = new PersistentUnorderedMap<u32, Question[]>('questions_map4');
 
 @nearBindgen
 export class Choice {
+  order: u32;
   title: string;
   isCorrect: boolean;
 }
 
 @nearBindgen
+export class ChoiceToAnswer {
+  order: u32;
+  title: string;
+}
+
+@nearBindgen
+export class QuestionToAnswer {
+  order: u32;
+  title: string;
+  choices: ChoiceToAnswer[];
+}
+
+@nearBindgen
 export class Question {
-  id: u32;
+  order: u32;
   title: string;
   choices: Choice[];
 
-  constructor(title: string, choices: Choice[]) {
+  constructor(order: u32, title: string, choices: Choice[]) {
+    this.order = order;
     this.title = title;
     this.choices = choices;
-    this.id = generateUniqueID();
   }
 }
 
@@ -32,23 +46,11 @@ export class Quiz {
   questionsCount: number;
   questionsId: u32;
 
-  constructor(name: string, questions: Question[]) {
+  constructor(name: string, questionsId: u32, questionsCount: number) {
     this.id = generateUniqueID();
     this.name = name;
     this.owner = Context.sender;
-    this.questionsCount = questions.length;
-    this.questionsId = this.saveQuestions(questions);
-  }
-
-  // To DO: ???
-  saveQuestions(questions: Question[]): u32 {
-    const questionsId = generateUniqueID();
-
-    questions_map.set(
-      questionsId,
-      questions.map<Question>((question: Question) => new Question(question.title, question.choices))
-    );
-
-    return questionsId;
+    this.questionsCount = questionsCount;
+    this.questionsId = questionsId;
   }
 }

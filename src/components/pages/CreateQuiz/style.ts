@@ -43,7 +43,7 @@ export const CreateQuizButton = styled(Button)({
   },
 });
 
-export const ConfirmationMessageWrapper = styled.div({
+export const CreateQuizConfirmationWrapper = styled.div({
   width: '100%',
   textAlign: 'center',
   padding: 40,

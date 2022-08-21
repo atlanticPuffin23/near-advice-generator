@@ -1,9 +1,9 @@
 import React from 'react';
 import { Question } from './Question';
 import { Form, useFormikContext } from 'formik';
-import { ICreateQuizValues } from './CreateQuiz';
-import { ButtonStyled } from '../../common/style';
 import { TextInput } from '../../common/TextInput';
+import { SecondaryButtonStyled } from '../../common/style';
+import { ICreateQuizValues } from '../../../types/interfaces';
 import { CREATE_QUIZ_QUESTION_INITIAL_VALUES, MAX_QUESTIONS_SIZE } from './constants';
 import { FormWrapper, FormActionsWrapper, QuizNameWrapper, CreateQuizButton } from './style';
 
@@ -21,14 +21,14 @@ export const CreateQuizForm = () => {
         </QuizNameWrapper>
 
         {questions.map((question, questionIndex) => (
-          <Question key={questionIndex} {...{ question, questionIndex, setFieldValue }} />
+          <Question key={`${question.title}-${question.order}`} {...{ question, questionIndex }} />
         ))}
 
         <FormActionsWrapper>
           {questions.length < MAX_QUESTIONS_SIZE && (
-            <ButtonStyled type="button" onClick={addNewQuestion}>
+            <SecondaryButtonStyled type="button" onClick={addNewQuestion}>
               Add Question
-            </ButtonStyled>
+            </SecondaryButtonStyled>
           )}
           <CreateQuizButton type="submit">Create Quiz</CreateQuizButton>
         </FormActionsWrapper>

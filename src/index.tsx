@@ -5,7 +5,6 @@ import { initContract } from './near/utils';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-// @ts-ignore for nearInitPromise
 window.nearInitPromise = initContract()
   .then(() => {
     root.render(<App />);

@@ -23,5 +23,7 @@ module.exports = {
     'pretty-imports/sorted': 'error',
     'react/no-unescaped-entities': 0,
     '@typescript-eslint/ban-ts-comment': 0,
+    '@typescript-eslint/no-non-null-assertion': 0,
+    '@typescript-eslint/no-non-null-asserted-optional-chain': 0,
   },
 };

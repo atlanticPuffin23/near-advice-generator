@@ -1,5 +1,12 @@
 import { Contract, WalletConnection } from 'near-api-js';
-import { IQuiz, IQuestion } from '../components/pages/Home/Home';
+import {
+  IQuiz,
+  IQuestion,
+  ICreateQuizParams,
+  IQuizQuestionsParams,
+  IScoreParams,
+  IQuizByIdParams,
+} from '../types/interfaces';
 
 export interface ContractWithMethods extends Contract {
   getAllQuizzes: () => Promise<IQuiz[]>;
@@ -12,7 +19,8 @@ export interface ContractWithMethods extends Contract {
 declare global {
   interface Window {
     accountId: string;
-    walletConnection: WalletConnection;
     contract: ContractWithMethods;
+    nearInitPromise: Promise<void>;
+    walletConnection: WalletConnection;
   }
 }

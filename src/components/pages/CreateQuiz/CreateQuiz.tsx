@@ -1,26 +1,17 @@
 import React from 'react';
 import { Formik } from 'formik';
 import { PageTitle } from './style';
-import { prepareFormValues } from './helpers';
 import { CreateQuizForm } from './CreateQuizForm';
-import { IQuestion } from '../../../types/interfaces';
+import { prepareFormValues } from '../../common/helpers';
 import { CREATE_QUIZ_INITIAL_VALUES } from './constants';
-import { ConfirmationMessage } from './ConfirmationMessage';
-
-export interface ICreateQuizQuestion extends IQuestion {
-  correctChoice: string;
-}
-
-export interface ICreateQuizValues {
-  name: string;
-  questions: ICreateQuizQuestion[];
-}
+import { CreateQuizConfirmation } from './CreateQuizConfirmation';
+import { ICreateQuizValues, IQuiz } from '../../../types/interfaces';
 
 export const CreateQuiz: React.FC = () => {
-  const [createdQuiz, setCreatedQuiz] = React.useState(null);
+  const [createdQuiz, setCreatedQuiz] = React.useState<IQuiz | null>(null);
 
   const createNewQuiz = (values: ICreateQuizValues) => {
-    const preparedValues = prepareFormValues(values);
+    const preparedValues = prepareFormValues<ICreateQuizValues>(values);
 
     window.contract.createQuiz(preparedValues).then((res) => setCreatedQuiz(res));
   };
@@ -28,7 +19,7 @@ export const CreateQuiz: React.FC = () => {
   return (
     <div>
       {createdQuiz ? (
-        <ConfirmationMessage quiz={createdQuiz} />
+        <CreateQuizConfirmation quiz={createdQuiz} />
       ) : (
         <>
           <PageTitle>Create Quiz</PageTitle>
